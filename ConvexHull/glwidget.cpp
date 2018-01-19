@@ -251,16 +251,16 @@ void partitionField(int leftIndex, int rightIndex, int median, bool vertical)
 	std::vector<QPointF> leftPartition = {};
 	std::vector<QPointF> rightPartition = {};
 	
+	float medianValue = vertical ? currentPartition->at(median).y() : currentPartition->at(median).x();
 	for (int i = leftIndex; i <= rightIndex; ++i)
 	{
 		QPointF point = nextPartition->at(i);
-		ptrdiff_t pos = std::distance((*currentPartition).begin(), std::find((*currentPartition).begin(), (*currentPartition).end(), point));
-
-		if (pos < median)
+		float nextValue = vertical ? point.y() : point.x();
+		if (nextValue < medianValue)
 		{
 			leftPartition.push_back(point);
 		}
-		if (pos > median)
+		if (nextValue > medianValue)
 		{
 			rightPartition.push_back(point);
 		}
